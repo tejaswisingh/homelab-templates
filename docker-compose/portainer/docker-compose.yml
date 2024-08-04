@@ -8,9 +8,13 @@ services:
       - no-new-privileges:true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /portainer_data:/data
+      - portainer_data:/data
     ports:
       - 9000:9000
       - 9443:9443
       - 8000:8000
     restart: unless-stopped
+
+volumes:
+  portainer_data:
+    driver: local
