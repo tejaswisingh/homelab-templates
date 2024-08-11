@@ -5,7 +5,7 @@ services:
     container_name: ts-oauth-proxmox
     hostname: oauth-proxmox
     environment:
-      - TS_AUTHKEY=tskey-client- #Generate and insert your oauth client secret
+      - TS_AUTHKEY=<client-secret>?ephemeral=false #Generate and insert your oauth client secret and toggle ephemeral property.
       - TS_EXTRA_ARGS=--advertise-tags=tag:container
       - TS_STATE_DIR=/var/lib/tailscale
       - TS_USERSPACE=false
