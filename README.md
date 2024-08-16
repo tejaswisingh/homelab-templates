@@ -31,7 +31,7 @@ To get started with using the templates in this repository, follow these steps:
 
 ## Contributing
 
-We welcome contributions from the community! If you have a template or configuration that you think would be useful, please open a pull request with a detailed description of your changes.
+We welcome contributions from the community! If you have a template or configuration that you think would be useful, please open a issue with a detailed description of your changes.
 
 ## License
 
