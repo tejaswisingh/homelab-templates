@@ -9,11 +9,15 @@ services:
       - PGID=1000
       - TZ=America/New_York
     volumes:
-      - /portainer/Files/AppData/Config/Jellyfin:/config
-      - /portainer/Files/Media:/media
+      - jellyfin_config:/config
+      - jellyfin_media:/media
     ports:
       - 8096:8096
       - 8920:8920
       - 1900:1900/udp
       - 7359:7359/udp
     restart: unless-stopped
+# Using persisitent volumes to support image updates via watchtower.
+volumes:
+  jellyfin_config:
+  jellyfin_media:
