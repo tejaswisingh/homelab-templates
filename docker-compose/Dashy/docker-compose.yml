@@ -1,13 +1,12 @@
----
 services:
   dashy:
     # To build from source, replace 'image: lissy93/dashy' with 'build: .'
     # build: .
     image: lissy93/dashy
-    container_name: Dashy
+    container_name: {your-container-name}
     # Pass in your config file below, by specifying the path on your host machine
-    # volumes:
-      # - /root/my-config.yml:/app/user-data/conf.yml
+    volumes:
+      - dashy:/app/user-data
     ports:
       - 8080:8080
     # Set any environmental variables
@@ -25,3 +24,6 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
+# Using persisitent volumes to support image updates via watchtower.
+volumes:
+  dashy:
