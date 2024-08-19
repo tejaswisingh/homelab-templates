@@ -21,8 +21,8 @@ To get started with using the templates in this repository, follow these steps:
 
 1. **Clone the Repository**:
     ```bash
-    git clone https://github.com/yourusername/homelab-boilerplates.git
-    cd homelab-boilerplates
+    git clone https://github.com/tejaswisingh/homelab-templates.git
+    cd homelab-templates
     ```
 
 2. **Browse the Templates**: Navigate through the directories to find the templates you need.
