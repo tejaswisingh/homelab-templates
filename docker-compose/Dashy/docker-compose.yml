@@ -1,8 +1,9 @@
+---
 services:
   dashy:
     # To build from source, replace 'image: lissy93/dashy' with 'build: .'
     # build: .
-    image: lissy93/dashy
+    image: lissy93/dashy:latest
     container_name: {your-container-name}
     # Pass in your config file below, by specifying the path on your host machine
     volumes:

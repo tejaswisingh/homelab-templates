@@ -1,5 +1,4 @@
-version: '3.8'
-
+---
 services:
   portainer:
     image: portainer/portainer-ce:latest
@@ -12,9 +11,7 @@ services:
     ports:
       - 9000:9000
       - 9443:9443
-      - 8000:8000
     restart: unless-stopped
 
 volumes:
   portainer_data:
-    driver: local

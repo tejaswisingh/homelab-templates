@@ -1,21 +1,21 @@
-version: '3'
+---
 services:
-  nginxproxymanager:
-    image: jc21/nginx-proxy-manager:latest
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
     container_name: nginxproxymanager
     restart: always
     ports:
-      - "80:80"       # HTTP
-      - "81:81"       # Admin interface
-      - "443:443"     # HTTPS
-    environment:
-      DB_SQLITE_FILE: "/data/database.sqlite"
+      - '80:80'
+      - '81:81'
+      - '443:443'
     volumes:
-      - portainer_data:/data
-      - portainer_letsencrypt:/etc/letsencrypt
-
+      - data:/data
+      - letsencrypt-certificates:/etc/letsencrypt
+    networks:
+      - npm_network
+networks:
+  npm_network:
+    driver: bridge
 volumes:
-  portainer_data:
-    driver: local
-  portainer_letsencrypt:
-    driver: local
+  data:
+  letsencrypt-certificates:

@@ -1,16 +1,20 @@
-version: '3'
+---
 services:
   vscode:
     image: codercom/code-server:latest
     container_name: vscode
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=your_puid_here
+      - PGID=your_pgid_here
       - TZ=America/New_York
       - PASSWORD=your_password  # You can remove this if using SSH keys
     volumes:
-      - /portainer/Files/AppData/Config/VSCode:/home/coder/.config
-      - /portainer/Files/AppData/Projects:/home/coder/projects
+      - config:/home/coder/.config
+      - projects:/home/coder/projects
     ports:
       - 8443:8443
     restart: unless-stopped
+
+volumes:
+  config:
+  projects:

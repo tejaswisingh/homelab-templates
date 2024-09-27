@@ -1,3 +1,4 @@
+---
 services:
   uptime-kuma:
     image: louislam/uptime-kuma:latest
@@ -5,9 +6,8 @@ services:
     ports:
       - "3001:3001"
     volumes:
-      - uptime-kuma-data:/app/data
+      - uptime_kuma_data:/app/data
     restart: always
 
 volumes:
-  uptime-kuma-data:
-    driver: local
+  uptime_kuma_data:

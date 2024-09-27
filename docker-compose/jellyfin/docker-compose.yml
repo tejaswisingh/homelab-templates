@@ -1,5 +1,4 @@
-version: '3.8'
-
+---
 services:
   jellyfin:
     image: linuxserver/jellyfin:latest
@@ -9,8 +8,8 @@ services:
       - PGID=1000
       - TZ=America/New_York
     volumes:
-      - jellyfin_config:/config
-      - jellyfin_media:/media
+      - config:/config
+      - media:/media
     ports:
       - 8096:8096
       - 8920:8920
@@ -19,5 +18,5 @@ services:
     restart: unless-stopped
 # Using persisitent volumes to support image updates via watchtower.
 volumes:
-  jellyfin_config:
-  jellyfin_media:
+  config:
+  media:

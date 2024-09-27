@@ -1,4 +1,4 @@
-version: '3.8'
+---
 services:
   wg-easy:
     image: ghcr.io/wg-easy/wg-easy  # The Docker image to use.
@@ -10,7 +10,7 @@ services:
       - PORT=51821                  # Port for the web interface.
       - WG_PORT=51820               # WireGuard port for VPN traffic.
     volumes:
-      - ./wg-easy/:/etc/wireguard   # Volume mapping for WireGuard configuration files.
+      - wireguard:/etc/wireguard   # Volume mapping for WireGuard configuration files.
     ports:
       - "51820:51820/udp"           # UDP port used by WireGuard.
       - "51821:51821/tcp"           # TCP port for accessing the web interface.
@@ -21,3 +21,6 @@ services:
       - net.ipv4.conf.all.src_valid_mark=1
       - net.ipv4.ip_forward=1
     restart: unless-stopped         # Ensures the container restarts automatically unless manually stopped.
+
+volumes:
+  wireguard:
