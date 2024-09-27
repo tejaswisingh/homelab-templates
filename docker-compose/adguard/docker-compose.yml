@@ -1,21 +1,20 @@
-version: '3'
-
+---
 services:
   adguardhome:
-    image: adguard/adguardhome
+    image: adguard/adguardhome:latest
     container_name: adguardhome
-    volumes:
-      - /portainer/Files/AppData/Adguard/Workdir:/opt/adguardhome/work
-      - /portainer/Files/AppData/Adguard/Conf:/opt/adguardhome/conf
     ports:
-      - "3000:3000"
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "80:80"
-      - "443:443"
-      - "853:853/tcp"
-      - "784:784/udp"
-      - "853:853/udp"
-      - "8853:8853/tcp"
-      - "8853:8853/udp"
-    restart: unless-stopped
+      - "3000:3000/tcp" # first install
+      - "53:53/tcp" # DNS Resolution
+      - "53:53/udp" # DNS Resolution
+      - "80:80/tcp" # WebUI
+      - "443:443/tcp" # DNS-over-HTTPS
+      - "853:853/tcp" # DNS-over-QUIC/DNS-over-TLS
+    volumes:
+      - data:/opt/adguardhome/work
+      - config:/opt/adguardhome/conf
+    restart: always
+
+volumes:
+  data:
+  config:
