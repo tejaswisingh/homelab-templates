@@ -1,0 +1,13 @@
+---
+services:
+  myspeed:
+    image: germannewsmaker/myspeed:latest
+    container_name: myspeed
+    ports:
+      - 5216:5216
+    volumes:
+      - data:/myspeed/data
+    restart: unless-stopped
+
+volumes:
+  data:
