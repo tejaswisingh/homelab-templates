@@ -1,0 +1,15 @@
+---
+services:
+  gotify:
+    image: gotify/server:latest
+    container_name: gotify
+    ports:
+      - 5438:80
+    environment:
+      - TZ="America/New_York"
+      - GOTIFY_DEFAULTUSER_PASS=custom # default username: admin, change password after login
+    volumes:
+      - data:/app/data
+
+volumes:
+  data:
