@@ -1,0 +1,19 @@
+---
+services:
+  adguardhome-sync:
+    image: quay.io/bakito/adguardhome-sync
+    container_name: adguardhome-sync
+    command: run
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL} #change as necessary
+      - ORIGIN_URL=${ORIGIN_URL} #change as necessary
+      - ORIGIN_USERNAME=${ORIGIN_USERNAME} #change as necessary
+      - ORIGIN_PASSWORD=${ORIGIN_PASSWORD} #change as necessary
+      - REPLICA_URL=${REPLICA_URL} #change as necessary
+      - REPLICA_USERNAME=${REPLICA_USERNAME} #change as necessary
+      - REPLICA_PASSWORD=${REPLICA_PASSWORD} #change as necessary
+      - CRON=${CRON} # run every 30 minute(s)
+      - RUN_ON_START=${RUN_ON_START} #change as necessary
+    ports:
+      - 6978:8080 #change as necessary
+    restart: unless-stopped
