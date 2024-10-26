@@ -11,4 +11,4 @@ docker volume create authentik_certs
 docker volume create authentik_custom_templates
 ```
 
-Also, this docker-compose assumes your have a reverse proxy setup already like [Link NginxProxyManager](https://github.com/tejaswisingh/homelab-templates/tree/main/docker-compose/nginxproxymanager) hence the port exposed containers are networked to the reverse proxy.
+Also, this docker-compose assumes your have a reverse proxy setup already like [NginxProxyManager](https://github.com/tejaswisingh/homelab-templates/tree/main/docker-compose/nginxproxymanager) hence the port exposed containers are networked to the reverse proxy.
