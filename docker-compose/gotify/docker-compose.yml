@@ -3,6 +3,7 @@ services:
   gotify:
     image: gotify/server:latest
     container_name: gotify
+    restart: always
     ports:
       - 5438:80
     environment:
