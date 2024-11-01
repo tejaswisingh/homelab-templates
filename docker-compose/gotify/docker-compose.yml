@@ -4,13 +4,34 @@ services:
     image: gotify/server:latest
     container_name: gotify
     restart: always
+    security_opt:
+      - no-new-privileges:true
     ports:
-      - 5438:80
+      - 8680:80
     environment:
       - TZ="America/New_York"
-      - GOTIFY_DEFAULTUSER_PASS=custom # default username: admin, change password after login
+      - GOTIFY_DEFAULTUSER_PASS=${GOTIFY_DEFAULTUSER_PASS}
     volumes:
       - data:/app/data
 
+  igotify:
+    container_name: igotify
+    hostname: igotify
+    image: ghcr.io/androidseb25/igotify-notification-assist:latest
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    pull_policy: always
+    ports:
+      - 8681:8080
+    volumes:
+      - push_api_data:/app/data
+    # uncomment after initial setup, make sure you create a client token and add it below
+    # environment:  
+    #   - GOTIFY_URLS=${GOTIFY_URLS} # could use ip address with port if hostname is not available
+    #   - GOTIFY_CLIENT_TOKENS=${GOTIFY_CLIENT_TOKENS}
+    #  SECNTFY_TOKENS: '' # optional
+
 volumes:
   data:
+  push_api_data:
