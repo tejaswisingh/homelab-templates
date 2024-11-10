@@ -1,0 +1,44 @@
+---
+services:
+  bookstack:
+    image: lscr.io/linuxserver/bookstack:latest
+    container_name: bookstack
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - APP_URL=${APP_URL}
+      - APP_KEY=${APP_KEY}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      # - QUEUE_CONNECTION= #optional
+    volumes:
+      - config:/config
+    ports:
+      - 6875:80
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+
+  mariadb:
+    image: lscr.io/linuxserver/mariadb:latest
+    container_name: bookstack_mariadb
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE} #optional
+      - MYSQL_USER=${DB_USERNAME} #optional
+      - MYSQL_PASSWORD=${DB_PASSWORD} #optional
+      # - REMOTE_SQL=http://URL1/your.sql,https://URL2/your.sql #optional
+    volumes:
+      - mariadb:/config
+    restart: unless-stopped
+
+volumes:
+  config:
+  mariadb:
