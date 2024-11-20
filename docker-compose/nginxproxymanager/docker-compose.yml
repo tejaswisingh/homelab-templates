@@ -2,20 +2,41 @@
 services:
   app:
     image: 'jc21/nginx-proxy-manager:latest'
-    container_name: nginxproxymanager
-    restart: always
+    container_name: npm
+    restart: unless-stopped
     ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
+      - '80:80' # Public HTTP Port
+      - '443:443' # Public HTTPS Port
+      - '81:81' # Admin Web Port
+    environment:
+      # Mysql/Maria connection parameters:
+      DB_MYSQL_HOST: ${DB_MYSQL_HOST}
+      DB_MYSQL_PORT: ${DB_MYSQL_PORT}
+      DB_MYSQL_USER: ${MYSQL_USER}
+      DB_MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      DB_MYSQL_NAME: ${MYSQL_DATABASE}
+      # Uncomment this if IPv6 is not enabled on your host
+      DISABLE_IPV6: 'true'
     volumes:
       - data:/data
-      - letsencrypt-certificates:/etc/letsencrypt
-    networks:
-      - npm_network
-networks:
-  npm_network:
-    driver: bridge
+      - letsencrypt:/etc/letsencrypt
+    depends_on:
+      - db
+
+  db:
+    image: 'jc21/mariadb-aria:latest'
+    container_name: npm-mariadb
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MARIADB_AUTO_UPGRADE: '1'
+    volumes:
+      - mysql:/var/lib/mysql
+
 volumes:
   data:
-  letsencrypt-certificates:
+  letsencrypt:
+  mysql:
