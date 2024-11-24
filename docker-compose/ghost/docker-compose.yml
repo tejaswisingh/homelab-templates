@@ -1,0 +1,46 @@
+---
+services:
+  ghost:
+    image: ghost:latest
+    container_name: ghost
+    restart: always
+    # ports: #Uncomment ports section if not proxying it behind a reverse proxy for security
+    #   - 8080:2368
+    environment:
+      # see https://ghost.org/docs/config/#configuration-options
+      database__client: mysql
+      database__connection__host: db
+      database__connection__user: root
+      database__connection__password: ${MYSQL_ROOT_PASSWORD}
+      database__connection__database: ghost
+      # this url value is just an example, and is likely wrong for your environment!
+      url: https://informedsage.com
+      # contrary to the default mentioned in the linked documentation, this image defaults to NODE_ENV=production (so development mode needs to be explicitly specified if desired)
+      #NODE_ENV: development
+    volumes:
+      - ghost:/var/lib/ghost/content
+    depends_on:
+      - db
+    networks:
+      - nginxproxymanager_default # Reverse proxy network
+      - ghost_default
+      
+  db:
+    image: mysql:8.0
+    container_name: ghost_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - ghost_default
+
+volumes:
+  ghost:
+  db:
+
+networks:
+  nginxproxymanager_default:
+    external: true
+  ghost_default:
